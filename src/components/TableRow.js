@@ -18,7 +18,7 @@ class TableRow extends Component {
       }
     };
     console.log("delete", this.props.obj.id);
-    Axios.delete("http://10.102.1.119:4001/posts/" + this.props.obj.id, head)
+    Axios.delete("http://10.102.1.119:3001/posts/" + this.props.obj.id, head)
       .then(this.props.history.push("/"))
       .catch(err => console.log(err));
   };

@@ -29,12 +29,12 @@ export default class Show extends Component {
 
     try {
       const post = await Axios.get(
-        "http://10.102.1.119:4001/posts/" + this.props.match.params.id,
+        "http://10.102.1.119:3001/posts/" + this.props.match.params.id,
         head
       );
 
       const comments = await Axios.get(
-        "http://10.102.1.119:4001/posts/" +
+        "http://10.102.1.119:3001/posts/" +
           this.props.match.params.id +
           "/comments",
         head
@@ -71,12 +71,12 @@ export default class Show extends Component {
 
       const sendMessage = {
         message: message,
-        userid: idd.id,
-        postid: this.props.match.params.id
+        userid: idd.id
+        //postid: this.props.match.params.id
       };
 
       const response = await Axios.post(
-        "http://10.102.1.119:4001/posts/" +
+        "http://10.102.1.119:3001/posts/" +
           this.props.match.params.id +
           "/comments",
         sendMessage,

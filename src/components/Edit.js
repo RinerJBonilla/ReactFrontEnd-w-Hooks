@@ -36,7 +36,7 @@ export default class Edit extends Component {
       }
     };
     Axios.get(
-      "http://10.102.1.119:4001/posts/" + this.props.match.params.id,
+      "http://10.102.1.119:3001/posts/" + this.props.match.params.id,
       head
     )
       .then(response => {
@@ -98,8 +98,8 @@ export default class Edit extends Component {
     const obj = {
       title: this.state.title,
       description: this.state.description,
-      content: this.state.content,
-      userid: this.state.userid
+      content: this.state.content
+      //userid: this.state.userid
     };
     let head = {
       headers: {
@@ -109,7 +109,7 @@ export default class Edit extends Component {
 
     try {
       const response = await Axios.put(
-        "http://10.102.1.119:4001/posts/" + this.props.match.params.id,
+        "http://10.102.1.119:3001/posts/" + this.props.match.params.id,
         obj,
         head
       );

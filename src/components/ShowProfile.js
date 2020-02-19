@@ -25,11 +25,11 @@ export default class ShowProfile extends Component {
 
     try {
       const profile = await Axios.get(
-        "http://10.102.1.119:4001/users/" + idd.id,
+        "http://10.102.1.119:3001/users/" + idd.id,
         head
       );
       const posts = await Axios.get(
-        "http://10.102.1.119:4001/users/" + idd.id + "/posts",
+        "http://10.102.1.119:3001/users/" + idd.id + "/posts",
         head
       );
       this.setState({

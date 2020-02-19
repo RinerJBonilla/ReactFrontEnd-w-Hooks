@@ -18,7 +18,7 @@ export default class List extends Component {
     };
     var userid = jwt.decode(Cookie.get("token"));
 
-    Axios.get("http://10.102.1.119:4001/users/" + userid.id + "/posts", head)
+    Axios.get("http://10.102.1.119:3001/users/" + userid.id + "/posts", head)
       .then(response => {
         this.setState({ post: response.data });
       })

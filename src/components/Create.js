@@ -59,8 +59,8 @@ export default class Create extends Component {
     const obj = {
       title: this.state.title,
       description: this.state.description,
-      content: this.state.content,
-      userid: userid.id
+      content: this.state.content
+      //userid: userid.id
     };
     let head = {
       headers: {
@@ -70,7 +70,7 @@ export default class Create extends Component {
 
     try {
       const response = await Axios.post(
-        "http://10.102.1.119:4001/posts",
+        "http://10.102.1.119:3001/posts",
         obj,
         head
       );

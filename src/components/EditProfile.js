@@ -35,7 +35,7 @@ export default class EditProfile extends Component {
 
     try {
       const userdata = await Axios.get(
-        "http://10.102.1.119:4001/users/" + idd.id,
+        "http://10.102.1.119:3001/users/" + idd.id,
         head
       );
       this.setState({
@@ -72,17 +72,12 @@ export default class EditProfile extends Component {
 
     try {
       const data = await Axios.put(
-        "http://10.102.1.119:4001/users/" + idd.id,
+        "http://10.102.1.119:3001/users/" + idd.id,
         obj,
         head
       );
-      console.log(data.data.token);
-      Cookie.set("token", data.data.token);
-      console.log(data);
-      console.log("session renewed");
-      var userid = jwt.decode(Cookie.get("token"));
-      console.log(userid);
-      this.props.setUser(userid.username);
+      console.log(data.data);
+      this.props.setUser(this.state.username);
       this.props.history.push("/profile");
     } catch (error) {
       return this.setState({

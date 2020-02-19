@@ -3,8 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Switch } from "react-router-dom";
 import "@reach/dialog/styles.css";
 import Home from "./Home";
-import Login from "./components/login";
-import Register from "./components/register";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 // const fakeAuth = {
 //   isAuthenticated: false,

@@ -17,7 +17,7 @@ const HomeList = ({ history }) => {
       };
       try {
         const response = await Axios.get(
-          "http://10.102.1.119:4001/posts",
+          "http://10.102.1.119:3001/posts",
           head
         );
         setPosts(response.data);

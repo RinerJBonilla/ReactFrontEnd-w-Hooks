@@ -41,8 +41,8 @@ export default function CommentList(props) {
       <ul className="list-group align-items-center">
         {!errorLoading ? (
           props.comments
-            .slice(0)
-            .reverse()
+            // .slice(0)
+            // .reverse()
             .map(({ id, username, message }) => (
               <div
                 className="list-group-item list-group-item-action flex-column align-items-start active py-2"
@@ -50,7 +50,9 @@ export default function CommentList(props) {
                 style={{
                   margin: "10px",
                   borderRadius: "40px",
-                  width: "500px"
+                  width: "500px",
+                  backgroundColor: "#808080",
+                  borderColor: "#808080"
                 }}
               >
                 <div className="d-flex w-100 justify-content-between">
@@ -71,7 +73,7 @@ export default function CommentList(props) {
       <div className="commentForm">
         <div className="container">
           <div className="d-flex justify-content-center">
-            <h1>Add Comment</h1>
+            <h2>Add Comment</h2>
           </div>
         </div>
 
