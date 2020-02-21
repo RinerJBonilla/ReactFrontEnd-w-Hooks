@@ -46,7 +46,7 @@ const Home = ({ history }) => {
       <Router>
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to={"/home"} className="navbar-brand">
+            <Link to={"/home"} className="navbar-brand" data-testid="blog">
               My Blog
             </Link>
 
@@ -56,12 +56,16 @@ const Home = ({ history }) => {
             >
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <Link to={"/create"} className="nav-link">
+                  <Link
+                    to={"/create"}
+                    className="nav-link"
+                    data-testid="create"
+                  >
                     Create
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={"/list"} className="nav-link">
+                  <Link to={"/list"} className="nav-link" data-testid="list">
                     List
                   </Link>
                 </li>
@@ -70,7 +74,7 @@ const Home = ({ history }) => {
             <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <Link to={"/profile"} className="nav-link">
+                  <Link to={"/profile"} className="nav-link" data-testid="user">
                     {user}
                   </Link>
                 </li>
@@ -78,6 +82,7 @@ const Home = ({ history }) => {
                   <button
                     onClick={handleLogout(history)}
                     className="btn btn-outline-secondary"
+                    data-testid="logout"
                   >
                     Logout
                   </button>

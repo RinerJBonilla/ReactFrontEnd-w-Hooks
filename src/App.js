@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 import "@reach/dialog/styles.css";
 import Home from "./Home";
 import Login from "./components/Login";
@@ -21,12 +21,14 @@ import Register from "./components/Register";
 class App extends Component {
   render() {
     return (
-      <div className="app-routes">
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/" component={Home} />
-        </Switch>
+      <div data-testid="approutes" className="app-routes">
+        <BrowserRouter>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/" component={Home} />
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   }

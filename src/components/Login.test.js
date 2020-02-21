@@ -26,7 +26,7 @@ test("component should not have vaiolations", async () => {
 
 test("renders login correctly", () => {
   const { getByTestId } = render(<Login></Login>);
-  const loginfo = getByTestId("login-form");
+  const loginfo = getByTestId(/login-form/i);
   expect(loginfo).toHaveFormValues({
     username: "",
     password: ""
@@ -35,13 +35,13 @@ test("renders login correctly", () => {
 
 test("check input forms in login", () => {
   const { getByTestId, getByPlaceholderText } = render(<Login></Login>);
-  const loginuser = getByPlaceholderText("username");
-  const loginpass = getByPlaceholderText("password");
+  const loginuser = getByPlaceholderText(/username/i);
+  const loginpass = getByPlaceholderText(/password/i);
 
   fireEvent.change(loginuser, { target: { value: "koko" } });
   fireEvent.change(loginpass, { target: { value: "1234" } });
 
-  const loginfo = getByTestId("login-form");
+  const loginfo = getByTestId(/login-form/i);
   expect(loginfo).toHaveFormValues({
     username: "koko",
     password: "1234"
@@ -52,19 +52,19 @@ test("check input forms in login as user", () => {
   const { getByTestId, getByPlaceholderText, queryByRole } = render(
     <Login></Login>
   );
-  const loginuser = getByPlaceholderText("username");
-  const loginpass = getByPlaceholderText("password");
+  const loginuser = getByPlaceholderText(/username/i);
+  const loginpass = getByPlaceholderText(/password/i);
 
   user.type(loginuser, "koko");
   user.type(loginpass, "1234");
 
-  const loginfo = getByTestId("login-form");
+  const loginfo = getByTestId(/login-form/i);
   expect(loginfo).toHaveFormValues({
     username: "koko",
     password: "1234"
   });
 
-  expect(queryByRole("alert")).toBeNull();
+  expect(queryByRole(/alert/i)).toBeNull();
 });
 
 test("test the login rejection", async () => {
@@ -82,19 +82,19 @@ test("test the login rejection", async () => {
 
   axios.post.mockRejectedValueOnce(data);
 
-  expect(queryByRole("alert")).toBeNull();
+  expect(queryByRole(/alert/i)).toBeNull();
 
-  const loginbutton = getByTestId("login-button");
+  const loginbutton = getByTestId(/login-button/i);
 
   fireEvent.click(loginbutton);
 
   expect(axios.post).toHaveBeenCalledTimes(1);
 
-  const alert = await findByRole("alert");
+  const alert = await findByRole(/alert/i);
 
   expect(alert).toHaveTextContent("bad request");
 
-  axios.post.mockReset();
+  jest.clearAllMocks();
 });
 
 test("test the login confirmation", () => {
@@ -102,8 +102,8 @@ test("test the login confirmation", () => {
   const { getByTestId, getByPlaceholderText, queryByRole } = render(
     <Login history={historyMock}></Login>
   );
-  const loginuser = getByPlaceholderText("username");
-  const loginpass = getByPlaceholderText("password");
+  const loginuser = getByPlaceholderText(/username/i);
+  const loginpass = getByPlaceholderText(/password/i);
 
   const data = {
     data: {
@@ -116,19 +116,19 @@ test("test the login confirmation", () => {
   user.type(loginuser, "koko");
   user.type(loginpass, "1234");
 
-  const loginfo = getByTestId("login-form");
+  const loginfo = getByTestId(/login-form/i);
   expect(loginfo).toHaveFormValues({
     username: "koko",
     password: "1234"
   });
 
-  expect(queryByRole("alert")).toBeNull();
+  expect(queryByRole(/alert/i)).toBeNull();
 
-  const loginbutton = getByTestId("login-button");
+  const loginbutton = getByTestId(/login-button/i);
 
   fireEvent.click(loginbutton);
 
   expect(axios.post).toHaveBeenCalledTimes(1);
 
-  axios.post.mockReset();
+  jest.clearAllMocks();
 });
