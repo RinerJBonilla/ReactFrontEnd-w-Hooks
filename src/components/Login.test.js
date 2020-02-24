@@ -68,9 +68,7 @@ test("check input forms in login as user", () => {
 });
 
 test("test the login rejection", async () => {
-  const { getByTestId, queryByRole, findByRole, debug } = render(
-    <Login></Login>
-  );
+  const { getByTestId, queryByRole, findByRole } = render(<Login></Login>);
 
   const data = {
     response: {
