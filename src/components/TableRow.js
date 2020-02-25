@@ -23,13 +23,22 @@ class TableRow extends Component {
       .catch(err => console.log(err));
   };
 
+  showMe() {
+    console.log("Show me");
+  }
+
   render() {
     return (
       <tr>
-        <td>{this.props.obj.title}</td>
-        <td>{this.props.obj.description}</td>
+        <td data-testid="obj-titl">{this.props.obj.title}</td>
+        <td data-testid="obj-desc">{this.props.obj.description}</td>
         <td>
-          <Link to={"/show/" + this.props.obj.id} className="btn btn-primary">
+          <Link
+            to={"/show/" + this.props.obj.id}
+            className="btn btn-primary"
+            data-testid="show"
+            onClick={this.showMe}
+          >
             View
           </Link>
         </td>
@@ -37,6 +46,7 @@ class TableRow extends Component {
           <Link
             to={"/edit/" + this.props.obj.id}
             className="btn btn-outline-secondary"
+            data-testid="edit"
           >
             Edit
           </Link>
@@ -46,7 +56,9 @@ class TableRow extends Component {
             {confirm => (
               <form onSubmit={confirm(this.delete)}>
                 <p>
-                  <button className="btn btn-danger">Delete</button>
+                  <button className="btn btn-danger" data-testid="delete">
+                    Delete
+                  </button>
                 </p>
               </form>
             )}

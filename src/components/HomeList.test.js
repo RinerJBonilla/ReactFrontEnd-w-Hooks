@@ -2,7 +2,6 @@ import React from "react";
 import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import "jest-axe/extend-expect";
-import user from "@testing-library/user-event";
 import HomeList from "./HomeList";
 import store from "store";
 import { Router } from "react-router-dom";
