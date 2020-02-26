@@ -6,10 +6,10 @@ import "@reach/dialog/styles.css";
 import Cookie from "js-cookie";
 
 class TableRow extends Component {
-  constructor(props) {
-    super(props);
-    //this.delete = this.delete.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   //this.delete = this.delete.bind(this);
+  // }
 
   delete = () => {
     let head = {

@@ -5,6 +5,8 @@ import "@testing-library/jest-dom/extend-expect";
 import "jest-axe/extend-expect";
 import user from "@testing-library/user-event";
 import axios from "axios";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 jest.mock("axios");
 
@@ -12,7 +14,12 @@ afterEach(cleanup);
 
 describe("Register container", () => {
   test("renders register correctly", () => {
-    const { getByTestId } = render(<Register></Register>);
+    const history = createMemoryHistory();
+    const { getByTestId } = render(
+      <Router history={history}>
+        <Register history={history}></Register>
+      </Router>
+    );
     const reginfo = getByTestId(/register-form/i);
     expect(reginfo).toHaveFormValues({
       username: "",
@@ -21,8 +28,11 @@ describe("Register container", () => {
   });
 
   test("check input forms in register", () => {
+    const history = createMemoryHistory();
     const { getByTestId, getByPlaceholderText, queryByRole } = render(
-      <Register></Register>
+      <Router history={history}>
+        <Register history={history}></Register>
+      </Router>
     );
     const reguser = getByPlaceholderText(/username/i);
     const regpass = getByPlaceholderText(/password/i);
@@ -40,8 +50,11 @@ describe("Register container", () => {
   });
 
   test("test the register rejection", async () => {
+    const history = createMemoryHistory();
     const { getByTestId, queryByRole, findByRole } = render(
-      <Register></Register>
+      <Router history={history}>
+        <Register history={history}></Register>
+      </Router>
     );
 
     const data = {
@@ -70,9 +83,11 @@ describe("Register container", () => {
   });
 
   test("test the login confirmation", () => {
-    const historyMock = { push: jest.fn() };
+    const historyMock = createMemoryHistory();
     const { getByTestId, getByPlaceholderText, queryByRole } = render(
-      <Register history={historyMock}></Register>
+      <Router history={historyMock}>
+        <Register history={historyMock}></Register>
+      </Router>
     );
     const reguser = getByPlaceholderText(/username/i);
     const regpass = getByPlaceholderText(/password/i);

@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import store from "store";
 import Cookie from "js-cookie";
-import { Link, BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Form } from "semantic-ui-react";
 
@@ -43,7 +43,7 @@ class Login extends React.Component {
 
       console.log("you're logged in. yay!");
       store.set("loggedIn", true);
-      this.props.history.push("/home");
+      history.push("/home");
     } catch (error) {
       if (!error) {
         return;
@@ -112,11 +112,9 @@ class Login extends React.Component {
           <div className="d-flex justify-content-center">
             <small>
               Not registered?
-              <BrowserRouter>
-                <Link to={"/register"} className="nav-link">
-                  Sign Up!
-                </Link>
-              </BrowserRouter>
+              <Link to={"/register"} className="nav-link">
+                Sign Up!
+              </Link>
             </small>
           </div>
         </div>

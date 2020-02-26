@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, BrowserRouter as Router, BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Form } from "semantic-ui-react";
 
@@ -104,11 +104,9 @@ class Register extends React.Component {
           <div className="d-flex justify-content-center">
             <small>
               Have an Account?
-              <Router>
-                <Link to={"/login"} className="nav-link">
-                  Log In!
-                </Link>
-              </Router>
+              <Link to={"/login"} className="nav-link">
+                Log In!
+              </Link>
             </small>
           </div>
         </div>

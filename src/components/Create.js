@@ -6,7 +6,6 @@ import draftToHtml from "draftjs-to-html";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Cookie from "js-cookie";
-import jwt from "jsonwebtoken";
 
 export default class Create extends Component {
   constructor(props) {
@@ -53,8 +52,6 @@ export default class Create extends Component {
   async onSubmit(e) {
     e.preventDefault();
 
-    var userid = jwt.decode(Cookie.get("token"));
-
     const obj = {
       title: this.state.title,
       description: this.state.description,
@@ -68,11 +65,7 @@ export default class Create extends Component {
     };
 
     try {
-      const response = await Axios.post(
-        "http://10.102.1.119:3001/posts",
-        obj,
-        head
-      );
+      await Axios.post("http://10.102.1.119:3001/posts", obj, head);
       this.setState({
         title: "",
         description: "",

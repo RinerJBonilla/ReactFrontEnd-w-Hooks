@@ -66,7 +66,7 @@ export default function CommentList(props) {
               </div>
             ))
         ) : (
-          <p style={{ color: "grey" }} role="empty">
+          <p style={{ color: "grey" }} role="status">
             {"No Comments"}
           </p>
         )}

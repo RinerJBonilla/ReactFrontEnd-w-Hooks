@@ -51,8 +51,8 @@ describe("CommentList Container", () => {
     const { getByTestId, debug, queryByRole } = render(
       CreateCommentList(history, comments, handleAdd)
     );
-    expect(queryByRole(/empty/i)).not.toBeNull();
-    expect(queryByRole(/empty/i)).toHaveTextContent("No Comments");
+    expect(queryByRole(/status/i)).not.toBeNull();
+    expect(queryByRole(/status/i)).toHaveTextContent("No Comments");
   });
 
   test("renders CommentList correctly 2", () => {

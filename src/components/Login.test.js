@@ -8,24 +8,42 @@ import "jest-axe/extend-expect";
 import user from "@testing-library/user-event";
 import { axe } from "jest-axe";
 import axios from "axios";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 jest.mock("axios");
 
 afterEach(cleanup);
 
 test("renders learn react link", () => {
+  const history = createMemoryHistory();
   const div = document.createElement("div");
-  ReactDOM.render(<Login></Login>, div);
+  ReactDOM.render(
+    <Router history={history}>
+      <Login history={history}></Login>
+    </Router>,
+    div
+  );
 });
 
 test("component should not have vaiolations", async () => {
-  const { container } = render(<Login></Login>);
+  const history = createMemoryHistory();
+  const { container } = render(
+    <Router history={history}>
+      <Login history={history}></Login>
+    </Router>
+  );
   const resutls = await axe(container);
   expect(resutls).not.toHaveNoViolations();
 });
 
 test("renders login correctly", () => {
-  const { getByTestId } = render(<Login></Login>);
+  const history = createMemoryHistory();
+  const { getByTestId } = render(
+    <Router history={history}>
+      <Login history={history}></Login>
+    </Router>
+  );
   const loginfo = getByTestId(/login-form/i);
   expect(loginfo).toHaveFormValues({
     username: "",
@@ -34,7 +52,12 @@ test("renders login correctly", () => {
 });
 
 test("check input forms in login", () => {
-  const { getByTestId, getByPlaceholderText } = render(<Login></Login>);
+  const history = createMemoryHistory();
+  const { getByTestId, getByPlaceholderText } = render(
+    <Router history={history}>
+      <Login history={history}></Login>
+    </Router>
+  );
   const loginuser = getByPlaceholderText(/username/i);
   const loginpass = getByPlaceholderText(/password/i);
 
@@ -49,8 +72,11 @@ test("check input forms in login", () => {
 });
 
 test("check input forms in login as user", () => {
+  const history = createMemoryHistory();
   const { getByTestId, getByPlaceholderText, queryByRole } = render(
-    <Login></Login>
+    <Router history={history}>
+      <Login history={history}></Login>
+    </Router>
   );
   const loginuser = getByPlaceholderText(/username/i);
   const loginpass = getByPlaceholderText(/password/i);
@@ -68,7 +94,12 @@ test("check input forms in login as user", () => {
 });
 
 test("test the login rejection", async () => {
-  const { getByTestId, queryByRole, findByRole } = render(<Login></Login>);
+  const history = createMemoryHistory();
+  const { getByTestId, queryByRole, findByRole } = render(
+    <Router history={history}>
+      <Login history={history}></Login>
+    </Router>
+  );
 
   const data = {
     response: {
@@ -96,9 +127,11 @@ test("test the login rejection", async () => {
 });
 
 test("test the login confirmation", () => {
-  const historyMock = { push: jest.fn() };
+  const history = createMemoryHistory();
   const { getByTestId, getByPlaceholderText, queryByRole } = render(
-    <Login history={historyMock}></Login>
+    <Router history={history}>
+      <Login history={history}></Login>
+    </Router>
   );
   const loginuser = getByPlaceholderText(/username/i);
   const loginpass = getByPlaceholderText(/password/i);
