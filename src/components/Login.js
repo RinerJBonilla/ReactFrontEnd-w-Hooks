@@ -37,7 +37,7 @@ class Login extends React.Component {
         username,
         password
       });
-      console.log(data);
+      console.log("we got data", data);
 
       Cookie.set("token", data.token);
 
@@ -45,7 +45,10 @@ class Login extends React.Component {
       store.set("loggedIn", true);
       history.push("/home");
     } catch (error) {
-      console.log(error.response);
+      if (!error) {
+        return;
+      }
+      console.log("we got an error", error);
       return this.setState({
         error: true,
         message: error.response.data.error || error.response.data.message
@@ -65,7 +68,7 @@ class Login extends React.Component {
     };
 
     return (
-      <div>
+      <div data-testid="login-container">
         <div className="container">
           <div className="d-flex justify-content-center">
             <h1>Log In</h1>
@@ -74,6 +77,7 @@ class Login extends React.Component {
 
         <div className="d-flex justify-content-center">
           <form
+            data-testid="login-form"
             className="border"
             style={mstyle}
             error={error ? 1 : 0}
@@ -83,6 +87,7 @@ class Login extends React.Component {
               inline
               label="Username"
               name="username"
+              placeholder="username"
               onChange={this.handleChange}
             />
             <Form.Input
@@ -90,9 +95,11 @@ class Login extends React.Component {
               label="Password"
               type="password"
               name="password"
+              placeholder="password"
               onChange={this.handleChange}
             />
             <button
+              data-testid="login-button"
               className="btn btn-outline-secondary"
               style={{ margin: "10px" }}
               type="submit"

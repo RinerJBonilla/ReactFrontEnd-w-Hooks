@@ -21,7 +21,7 @@ import Register from "./components/Register";
 class App extends Component {
   render() {
     return (
-      <div className="app-routes">
+      <div data-testid="approutes" className="app-routes">
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />

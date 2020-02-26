@@ -41,6 +41,7 @@ export default class EditProfile extends Component {
       this.setState({
         username: userdata.data.username
       });
+      console.log("finish component did mount");
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +100,7 @@ export default class EditProfile extends Component {
     return (
       <div>
         <div className="container">
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center" data-testid="title">
             <h1>Edit My Profile</h1>
           </div>
         </div>
@@ -109,12 +110,14 @@ export default class EditProfile extends Component {
             className="border"
             style={mstyle}
             error={error ? 1 : 0}
+            data-testid="edit-form"
             onSubmit={this.onSubmit}
           >
             <Form.Input
               inline
               label="Username"
               name="username"
+              placeholder="username"
               value={this.state.username}
               onChange={this.handleChange}
             />
@@ -123,6 +126,7 @@ export default class EditProfile extends Component {
               label="Password"
               type="password"
               name="password"
+              placeholder="password"
               value={this.state.password}
               onChange={this.handleChange}
             />
@@ -131,11 +135,13 @@ export default class EditProfile extends Component {
               label="Confirm Password"
               type="password"
               name="confirmpassword"
+              placeholder="confirm"
               onChange={this.handleChange}
             />
             <button
               className="btn btn-outline-secondary"
               style={{ margin: "10px" }}
+              data-testid="edit-button"
               type="submit"
             >
               Change

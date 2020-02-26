@@ -60,7 +60,7 @@ class Register extends React.Component {
     };
 
     return (
-      <div>
+      <div data-testid="register-container">
         <div className="container">
           <div className="d-flex justify-content-center">
             <h1>Sign Up</h1>
@@ -69,6 +69,7 @@ class Register extends React.Component {
 
         <div className="d-flex justify-content-center">
           <form
+            data-testid="register-form"
             className="border"
             style={mstyle}
             error={error ? 1 : 0}
@@ -78,6 +79,7 @@ class Register extends React.Component {
               inline
               label="Username"
               name="username"
+              placeholder="username"
               onChange={this.handleChange}
             />
             <Form.Input
@@ -85,9 +87,11 @@ class Register extends React.Component {
               label="Password"
               type="password"
               name="password"
+              placeholder="password"
               onChange={this.handleChange}
             />
             <button
+              data-testid="register-button"
               className="btn btn-outline-secondary"
               style={{ margin: "10px" }}
               type="submit"

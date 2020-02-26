@@ -1,9 +1,17 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import { render, cleanup } from "@testing-library/react";
+import App from "./App";
+import { createMemoryHistory } from "history";
+import { Router } from "react-router-dom";
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+afterEach(cleanup);
+
+test("renders App correctly", () => {
+  const history = createMemoryHistory();
+  const { getByTestId, debug } = render(
+    <Router history={history}>
+      <App></App>
+    </Router>
+  );
+  // debug(getByTestId(/approutes/i));
 });

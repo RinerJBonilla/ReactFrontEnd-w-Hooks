@@ -111,13 +111,16 @@ export default class Show extends Component {
   render() {
     return (
       <div className="container">
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center" data-testid="title">
           <h1>{this.state.title}</h1>
         </div>
-        <div className="d-flex justify-content-center">
+        <div
+          className="d-flex justify-content-center"
+          data-testid="description"
+        >
           <h5 style={{ color: "#999999" }}>{this.state.description}</h5>
         </div>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center" data-testid="username">
           <small>by {this.state.username}</small>
         </div>
         <p>&nbsp;</p>

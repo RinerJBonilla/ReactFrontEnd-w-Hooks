@@ -7,39 +7,36 @@ import { Link } from "react-router-dom";
 const HomeList = ({ history }) => {
   const [posts, setPosts] = useState([]);
   const [errorLoading, setErrorLoading] = useState(false);
+  async function bringContent() {
+    let head = {
+      headers: {
+        authtoken: Cookie.get("token")
+      }
+    };
+    try {
+      const response = await Axios.get("http://10.102.1.119:3001/posts", head);
+      setPosts(response.data);
+      console.log("done bringing posts");
+    } catch (error) {
+      console.log(error);
+      setErrorLoading(true);
+    }
+  }
 
   useEffect(() => {
-    async function bringContent() {
-      let head = {
-        headers: {
-          authtoken: Cookie.get("token")
-        }
-      };
-      try {
-        const response = await Axios.get(
-          "http://10.102.1.119:3001/posts",
-          head
-        );
-        setPosts(response.data);
-        console.log("done bringing posts");
-      } catch (error) {
-        console.log(error);
-        setErrorLoading(true);
-      }
-    }
-
     bringContent();
   }, []);
 
   return (
     <div className="HomeLists">
-      <ul className="list-group">
+      <ul className="list-group" data-testid="list">
         {!errorLoading ? (
           posts
             .slice(0)
             .reverse()
             .map(({ id, title, description }) => (
               <Link
+                data-testid={"postlink" + id}
                 to={"/show/" + id}
                 className="list-group-item list-group-item-action flex-column align-items-start rounded py-2"
                 style={{

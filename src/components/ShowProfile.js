@@ -37,8 +37,12 @@ export default class ShowProfile extends Component {
         posts: posts.data.length
       });
     } catch (error) {
-      console.log(error);
+      console.log("My ERROR_______", error);
     }
+  }
+
+  sayHello() {
+    console.log("you're about to edit your profile");
   }
 
   render() {
@@ -50,14 +54,19 @@ export default class ShowProfile extends Component {
     };
     return (
       <div className="container" style={mstyle}>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center" data-testid="username">
           <h1>{this.state.username}</h1>
         </div>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center" data-testid="counter">
           <h5 style={{ color: "#999999" }}>Posts: {this.state.posts}</h5>
         </div>
-        <div className="d-flex justify-content-center">
-          <Link to={"/editprofile"} className="btn btn-outline-secondary">
+        <div className="d-flex justify-content-center" data-testid="propane">
+          <Link
+            to={"/editprofile"}
+            className="btn btn-outline-secondary"
+            data-testid="editprofile"
+            onClick={this.sayHello}
+          >
             Edit
           </Link>
         </div>

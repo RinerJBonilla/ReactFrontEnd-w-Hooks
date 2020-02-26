@@ -20,8 +20,6 @@ export default function CommentList(props) {
   };
 
   useEffect(() => {
-    console.log("in use effect with: ", props.comments);
-
     if (!props.comments || props.comments.length === 0) {
       setErrorLoading(true);
     } else {
@@ -45,6 +43,7 @@ export default function CommentList(props) {
             // .reverse()
             .map(({ id, username, message }) => (
               <div
+                data-testid="comment"
                 className="list-group-item list-group-item-action flex-column align-items-start active py-2"
                 key={id}
                 style={{
@@ -67,7 +66,9 @@ export default function CommentList(props) {
               </div>
             ))
         ) : (
-          <p style={{ color: "grey" }}>{"No Comments"}</p>
+          <p style={{ color: "grey" }} role="status">
+            {"No Comments"}
+          </p>
         )}
       </ul>
       <div className="commentForm">
@@ -78,8 +79,14 @@ export default function CommentList(props) {
         </div>
 
         <div className="d-flex justify-content-center">
-          <form className="border" style={mstyle} onSubmit={handleSubmit}>
+          <form
+            className="border"
+            data-testid="cinfo"
+            style={mstyle}
+            onSubmit={handleSubmit}
+          >
             <textarea
+              data-testid="cinput"
               type="textarea"
               name="message"
               style={{ width: "250px" }}
@@ -89,6 +96,7 @@ export default function CommentList(props) {
             />
             <div>
               <button
+                data-testid="cbutton"
                 className="btn btn-outline-secondary"
                 style={{ margin: "10px" }}
                 type="submit"
