@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 import Cookie from "js-cookie";
 import jwt from "jsonwebtoken";
-import { Link, BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class ShowProfile extends Component {
   constructor(props) {
@@ -61,16 +61,14 @@ export default class ShowProfile extends Component {
           <h5 style={{ color: "#999999" }}>Posts: {this.state.posts}</h5>
         </div>
         <div className="d-flex justify-content-center" data-testid="propane">
-          <BrowserRouter>
-            <Link
-              to={"/editprofile"}
-              className="btn btn-outline-secondary"
-              data-testid="editprofile"
-              onClick={this.sayHello}
-            >
-              Edit
-            </Link>
-          </BrowserRouter>
+          <Link
+            to={"/editprofile"}
+            className="btn btn-outline-secondary"
+            data-testid="editprofile"
+            onClick={this.sayHello}
+          >
+            Edit
+          </Link>
         </div>
       </div>
     );
