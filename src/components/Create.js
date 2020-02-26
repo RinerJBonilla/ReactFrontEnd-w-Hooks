@@ -29,7 +29,6 @@ export default class Create extends Component {
 
   onEditorStateChange = event => {
     const cont = draftToHtml(convertToRaw(event.getCurrentContent()));
-    console.log(cont);
     this.setState({ editorState: event, content: cont });
   };
 
@@ -74,7 +73,6 @@ export default class Create extends Component {
         obj,
         head
       );
-      console.log(response.data);
       this.setState({
         title: "",
         description: "",
@@ -96,32 +94,35 @@ export default class Create extends Component {
     const { editorState, error } = this.state;
     return (
       <div style={{ marginTop: 10 }}>
-        <h3>Add New Post</h3>
-        <form error={error ? 1 : 0}>
+        <h3 data-testid="create-label">Add New Post</h3>
+        <form error={error ? 1 : 0} data-testid="create-form">
           <div className="form-group">
-            <label>Title: </label>
+            <label data-testid="label-title">Title: </label>
             <input
               type="text"
               className="form-control"
               value={this.state.title}
+              data-testid="create-title"
               onChange={this.onChangeTitle}
             />
           </div>
           <div className="form-group">
-            <label>Description: </label>
+            <label data-testid="label-desc">Description: </label>
             <input
               type="text"
               className="form-control"
+              data-testid="create-desc"
               value={this.state.description}
               onChange={this.onChangeDescription}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group" data-testid="ebutton">
             <Editor
               editorState={editorState}
               toolbarClassName="toolbarClassName"
               wrapperClassName="wrapperClassName"
               editorClassName="editorClassName"
+              data-testid="xbutton"
               onEditorStateChange={this.onEditorStateChange}
             />
           </div>
@@ -129,6 +130,7 @@ export default class Create extends Component {
             <button
               onClick={this.onSubmit}
               className="btn btn-outline-secondary"
+              data-testid="cbutton"
               type="button"
             >
               Create

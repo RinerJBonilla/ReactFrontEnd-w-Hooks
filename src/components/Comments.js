@@ -20,8 +20,6 @@ export default function CommentList(props) {
   };
 
   useEffect(() => {
-    console.log("in use effect with: ", props.comments);
-
     if (!props.comments || props.comments.length === 0) {
       setErrorLoading(true);
     } else {

@@ -34,7 +34,6 @@ const Home = ({ history }) => {
   useEffect(() => {
     const userid = jwt.decode(Cookie.get("token"));
     if (userid) {
-      console.log(userid.username);
       setUser(userid.username);
     }
   }, []);

@@ -29,7 +29,6 @@ export default class Edit extends Component {
   }
 
   componentDidMount() {
-    console.log("res: " + this.props.match.params.id);
     let head = {
       headers: {
         authtoken: Cookie.get("token")
@@ -58,8 +57,6 @@ export default class Edit extends Component {
             this.setState({
               editorState: editorState
             });
-            console.log(this.state);
-            console.log(response.data);
           }
         );
       })
@@ -70,7 +67,6 @@ export default class Edit extends Component {
 
   onEditorStateChange = event => {
     const cont = draftToHtml(convertToRaw(event.getCurrentContent()));
-    console.log(cont);
     this.setState({ editorState: event, content: cont });
   };
 
@@ -136,32 +132,35 @@ export default class Edit extends Component {
     const { editorState, error } = this.state;
     return (
       <div style={{ marginTop: 10 }}>
-        <h3>Edit Post</h3>
-        <form error={error ? 1 : 0}>
+        <h3 data-testid="edit-mypost">Edit Post</h3>
+        <form error={error ? 1 : 0} data-testid="edit-form">
           <div className="form-group">
-            <label>Title: </label>
+            <label data-testid="title-label">Title: </label>
             <input
               type="text"
               className="form-control"
+              data-testid="edit-title"
               value={this.state.title}
               onChange={this.onChangeTitle}
             />
           </div>
           <div className="form-group">
-            <label>Description: </label>
+            <label data-testid="desc-label">Description: </label>
             <input
               type="text"
               className="form-control"
               value={this.state.description}
+              data-testid="edid-desc"
               onChange={this.onChangeDescription}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group" data-testid="content-editor">
             <Editor
               editorState={editorState}
               toolbarClassName="toolbarClassName"
               wrapperClassName="wrapperClassName"
               editorClassName="editorClassName"
+              data-testid="editor-wrapper"
               onEditorStateChange={this.onEditorStateChange}
             />
           </div>
@@ -169,6 +168,7 @@ export default class Edit extends Component {
           <div className="form-group">
             <button
               onClick={this.onSubmit}
+              data-testid="ebutton"
               className="btn btn-outline-secondary"
               type="button"
             >
