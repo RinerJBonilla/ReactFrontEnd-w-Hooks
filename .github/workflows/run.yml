@@ -4,21 +4,23 @@ on:
   push:
     branches:
       - testing
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Install dependencies
-      run: npm install
-    - name: Test app
-      run: npm run tester
-    - name: Build application
-      run: npm run build
-      env:
-        CI: true
+      - uses: actions/checkout@v2
+      - name: Run a one-line script
+        run: echo Hello, world!
+      - name: Install dependencies
+        run: npm install
+      - name: Test app
+        run: npm run tester
+      - name: Build application
+        run: npm run build
+        env:
+          CI: true
