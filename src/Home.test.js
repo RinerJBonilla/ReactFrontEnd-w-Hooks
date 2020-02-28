@@ -8,6 +8,8 @@ import store from "store";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import Cookie from "js-cookie";
+import { act } from "react-dom/test-utils";
+import axios from "axios";
 
 function CreateHome(history) {
   return (
@@ -22,9 +24,18 @@ beforeAll(() => {
     "token",
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imtva28iLCJpZCI6MTQsImlhdCI6MTU4MTQ0ODE3MX0.yH-l-IVLF_lKkZCLlkiBIgiiFOMmmiUsDnH3TOoihlU"
   );
+  const data = { data: [] };
+
+  axios.get.mockResolvedValue(data);
 });
 
+jest.mock("axios");
+
 afterEach(cleanup);
+
+afterAll(() => {
+  jest.clearAllMocks();
+});
 
 describe("Home Container", () => {
   test("renders Home correctly", () => {
@@ -34,28 +45,36 @@ describe("Home Container", () => {
     expect(history.location.pathname).toEqual("/login");
   });
 
-  test("renders Home correctly 2", () => {
+  test("renders Home correctly 2", async () => {
     store.set("loggedIn", true);
     const history = createMemoryHistory();
-    const { getByTestId, debug } = render(CreateHome(history));
+    await act(async () => {
+      const { getByTestId, debug } = render(CreateHome(history));
+    });
 
-    expect(history.location.pathname).toEqual("/");
+    expect(history.location.pathname).toEqual("/homelist");
   });
 
-  test("checking navigation Home component", () => {
+  test("checking navigation Home component", async () => {
     const history = createMemoryHistory();
-    const { getByTestId, debug } = render(CreateHome(history));
+    let getByTestId2;
 
-    user.click(getByTestId(/create/i));
+    await act(async () => {
+      const { getByTestId, debug } = render(CreateHome(history));
+      getByTestId2 = getByTestId;
+      user.click(getByTestId2(/create/i));
+    });
 
-    expect(getByTestId(/user/i)).toHaveTextContent("koko");
+    expect(getByTestId2(/user/i)).toHaveTextContent("koko");
   });
 
-  test("checking logout from home component", () => {
+  test("checking logout from home component", async () => {
     const history = createMemoryHistory();
-    const { getByTestId, debug } = render(CreateHome(history));
+    await act(async () => {
+      const { getByTestId, debug } = render(CreateHome(history));
+      user.click(getByTestId(/logout/i));
+    });
 
-    user.click(getByTestId(/logout/i));
     expect(history.location.pathname).toEqual("/login");
   });
 });
