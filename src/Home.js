@@ -89,6 +89,7 @@ const Home = ({ history }) => {
             render={props => <EditProfile {...props} setUser={setUser} />}
           />
           <Redirect from="/home" exact to="/homelist" />
+          <Redirect from="/" exact to="/homelist" />
           <Route component={FourOhFour} />
         </Switch>
       </div>
