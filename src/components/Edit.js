@@ -3,6 +3,7 @@ import Axios from "axios";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
+import InputTag from "./InputTag";
 
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -24,45 +25,55 @@ export default class Edit extends Component {
       userid: "",
       editorState: EditorState.createEmpty(),
       error: false,
-      message: ""
+      message: "",
+      tags: [],
+      backUpTags: []
     };
   }
 
-  componentDidMount() {
+  ChangeInputs = ntags => {
+    this.setState({ tags: ntags });
+  };
+
+  async componentDidMount() {
     let head = {
       headers: {
         authtoken: Cookie.get("token")
       }
     };
-    Axios.get(
-      "http://10.102.1.119:3001/posts/" + this.props.match.params.id,
-      head
-    )
-      .then(response => {
-        this.setState(
-          {
-            title: response.data.title,
-            description: response.data.description,
-            content: response.data.content,
-            userid: response.data.userid
-          },
-          () => {
-            const blocksFromHtml = htmlToDraft(this.state.content);
-            const { contentBlocks, entityMap } = blocksFromHtml;
-            const contentState = ContentState.createFromBlockArray(
-              contentBlocks,
-              entityMap
-            );
-            const editorState = EditorState.createWithContent(contentState);
-            this.setState({
-              editorState: editorState
-            });
-          }
-        );
-      })
-      .catch(function(error) {
-        console.log(error);
+
+    try {
+      const response = await Axios.get(
+        "http://10.102.1.119:3001/posts/" + this.props.match.params.id,
+        head
+      );
+
+      const ttags = [];
+      for (var i = 0; i < response.data.tags.length; i++) {
+        ttags.push(response.data.tags[i].name);
+      }
+      this.setState({
+        title: response.data.title,
+        description: response.data.description,
+        content: response.data.content,
+        userid: response.data.userid,
+        tags: ttags,
+        backUpTags: response.data.tags
       });
+      console.log("yay", this.state.tags);
+      const blocksFromHtml = htmlToDraft(this.state.content);
+      const { contentBlocks, entityMap } = blocksFromHtml;
+      const contentState = ContentState.createFromBlockArray(
+        contentBlocks,
+        entityMap
+      );
+      const editorState = EditorState.createWithContent(contentState);
+      this.setState({
+        editorState: editorState
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   onEditorStateChange = event => {
@@ -88,14 +99,42 @@ export default class Edit extends Component {
     });
   }
 
+  checkTagChanges() {
+    const tagsToRemove = this.state.backUpTags.filter(
+      t1 => !this.state.tags.some(t2 => t1.name === t2)
+    );
+    const tagsToCreate = this.state.tags.filter(
+      t1 => !this.state.backUpTags.some(t2 => t1 === t2.name)
+    );
+    console.log("tags to remove: ", tagsToRemove);
+    console.log("tags to create: ", tagsToCreate);
+
+    const nTagsToCreate = [];
+    for (var i = 0; i < tagsToCreate.length; i++) {
+      nTagsToCreate.push({ name: tagsToCreate[i] });
+    }
+
+    const nTagsToRemove = [];
+    for (var j = 0; j < tagsToRemove.length; j++) {
+      nTagsToRemove.push({ id: tagsToRemove[j].id });
+    }
+
+    console.log("tags to create 2: ", nTagsToCreate);
+    console.log("tags to remove 2: ", nTagsToRemove);
+
+    return { nTagsToCreate, nTagsToRemove };
+  }
+
   async onSubmit(e) {
     e.preventDefault();
 
+    const { nTagsToCreate, nTagsToRemove } = this.checkTagChanges();
     const obj = {
       title: this.state.title,
       description: this.state.description,
-      content: this.state.content
-      //userid: this.state.userid
+      content: this.state.content,
+      createtags: nTagsToCreate.length > 0 ? nTagsToCreate : [],
+      removetags: nTagsToRemove.length > 0 ? nTagsToRemove : []
     };
     let head = {
       headers: {
@@ -104,21 +143,26 @@ export default class Edit extends Component {
     };
 
     try {
+      console.log(head);
       const response = await Axios.put(
         "http://10.102.1.119:3001/posts/" + this.props.match.params.id,
         obj,
         head
       );
       console.log(response.data);
+
       this.setState({
         title: "",
         description: "",
         content: "",
-        editorState: EditorState.createEmpty()
+        editorState: EditorState.createEmpty(),
+        tags: [],
+        backUpTags: []
       });
 
       this.props.history.push("/list");
     } catch (error) {
+      console.log("error", error);
       return this.setState({
         error: true,
         message: error.response.data.message
@@ -129,7 +173,7 @@ export default class Edit extends Component {
   }
 
   render() {
-    const { editorState, error } = this.state;
+    const { editorState, error, tags } = this.state;
     return (
       <div style={{ marginTop: 10 }}>
         <h3 data-testid="edit-mypost">Edit Post</h3>
@@ -153,6 +197,9 @@ export default class Edit extends Component {
               data-testid="edid-desc"
               onChange={this.onChangeDescription}
             />
+          </div>
+          <div>
+            <InputTag ChangeInputs={this.ChangeInputs} tags={tags}></InputTag>
           </div>
           <div className="form-group" data-testid="content-editor">
             <Editor
