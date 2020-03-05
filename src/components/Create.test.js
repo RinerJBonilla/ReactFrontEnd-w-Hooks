@@ -38,6 +38,7 @@ describe("Create Container", () => {
     expect(getByTestId(/create-label/i)).toHaveTextContent("Add New Post");
     expect(getByTestId(/label-title/i)).toHaveTextContent("Title:");
     expect(getByTestId(/label-desc/i)).toHaveTextContent("Description:");
+    expect(getByTestId(/label-tags/i)).toHaveTextContent("Tags:");
     expect(getByTestId(/cbutton/i)).toHaveTextContent("Create");
 
     expect(queryByRole(/alert/i)).toBeNull();

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
+import InputTag from "./InputTag";
 
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -22,13 +23,18 @@ export default class Create extends Component {
       content: "",
       editorState: EditorState.createEmpty(),
       error: false,
-      message: ""
+      message: "",
+      tags: []
     };
   }
 
   onEditorStateChange = event => {
     const cont = draftToHtml(convertToRaw(event.getCurrentContent()));
     this.setState({ editorState: event, content: cont });
+  };
+
+  ChangeInputs = ntags => {
+    this.setState({ tags: ntags });
   };
 
   onChangeTitle(e) {
@@ -52,11 +58,15 @@ export default class Create extends Component {
   async onSubmit(e) {
     e.preventDefault();
 
+    const payload = [];
+    for (var i = 0; i < this.state.tags.length; i++) {
+      payload.push({ name: this.state.tags[i] });
+    }
     const obj = {
       title: this.state.title,
       description: this.state.description,
-      content: this.state.content
-      //userid: userid.id
+      content: this.state.content,
+      tags: payload ? payload : []
     };
     let head = {
       headers: {
@@ -70,8 +80,10 @@ export default class Create extends Component {
         title: "",
         description: "",
         content: "",
-        editorState: EditorState.createEmpty()
+        editorState: EditorState.createEmpty(),
+        tags: []
       });
+
       this.props.history.push("/list");
     } catch (error) {
       return this.setState({
@@ -84,7 +96,7 @@ export default class Create extends Component {
   }
 
   render() {
-    const { editorState, error } = this.state;
+    const { editorState, error, tags } = this.state;
     return (
       <div style={{ marginTop: 10 }}>
         <h3 data-testid="create-label">Add New Post</h3>
@@ -108,6 +120,10 @@ export default class Create extends Component {
               value={this.state.description}
               onChange={this.onChangeDescription}
             />
+          </div>
+          <div>
+            <label data-testid="label-tags">Tags: </label>
+            <InputTag ChangeInputs={this.ChangeInputs} tags={tags}></InputTag>
           </div>
           <div className="form-group" data-testid="ebutton">
             <Editor
