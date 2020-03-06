@@ -11,6 +11,7 @@ import isLoggedIn from "./helpers/isLoggedIn";
 import ShowProfile from "./components/ShowProfile";
 import EditProfile from "./components/EditProfile";
 import HomeList from "./components/HomeList";
+import HomeListByTag from "./components/HomeListByTag";
 import FourOhFour from "./components/FourOhFour";
 import Cookie from "js-cookie";
 import jwt from "jsonwebtoken";
@@ -83,6 +84,7 @@ const Home = ({ history }) => {
           <Route path="/edit/:id" component={Edit} />
           <Route path="/list" component={List} />
           <Route path="/profile" component={ShowProfile} />
+          <Route path="/tag/:name" component={HomeListByTag} />
           <Route path="/homelist" component={HomeList} />
           <Route
             path="/editprofile"
