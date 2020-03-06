@@ -20,6 +20,7 @@ export default function CommentList(props) {
   };
 
   useEffect(() => {
+    console.log("props changed in comments dwag!");
     if (!props.comments || props.comments.length === 0) {
       setErrorLoading(true);
     } else {
@@ -74,7 +75,7 @@ export default function CommentList(props) {
       <div className="commentForm">
         <div className="container">
           <div className="d-flex justify-content-center">
-            <h2>Add Comment</h2>
+            <h3>Add Comment</h3>
           </div>
         </div>
 
