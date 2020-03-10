@@ -12,7 +12,10 @@ import ShowProfile from "./components/ShowProfile";
 import EditProfile from "./components/EditProfile";
 import HomeList from "./components/HomeList";
 import HomeListByTag from "./components/HomeListByTag";
+import Search from "./components/Search";
 import FourOhFour from "./components/FourOhFour";
+import { faSearch, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Cookie from "js-cookie";
 import jwt from "jsonwebtoken";
 
@@ -55,13 +58,19 @@ const Home = ({ history }) => {
                   List
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to={"/search"} className="nav-link" data-testid="search">
+                  <FontAwesomeIcon icon={faSearch} />
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link" data-testid="user">
-                  {user}
+                  <FontAwesomeIcon icon={faUserCircle} />
+                  {" " + user}
                 </Link>
               </li>
               <li className="nav-item">
@@ -84,8 +93,12 @@ const Home = ({ history }) => {
           <Route path="/edit/:id" component={Edit} />
           <Route path="/list" component={List} />
           <Route path="/profile" component={ShowProfile} />
-          <Route path="/tag/:name" component={HomeListByTag} />
+          <Route
+            path="/tag/:name"
+            render={props => <HomeListByTag {...props} />}
+          />
           <Route path="/homelist" component={HomeList} />
+          <Route path="/search" component={Search} />
           <Route
             path="/editprofile"
             render={props => <EditProfile {...props} setUser={setUser} />}

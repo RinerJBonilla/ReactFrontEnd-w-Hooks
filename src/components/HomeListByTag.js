@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Cookie from "js-cookie";
 import Axios from "axios";
 import { Link } from "react-router-dom";
+import { faTag } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const HomeListByTag = props => {
   const [posts, setPosts] = useState([]);
@@ -41,7 +43,8 @@ const HomeListByTag = props => {
     <div className="HomeLists">
       <h2>
         <span className="badge badge-primary" data-testid="tag_label">
-          {props.match.params.name}
+          <FontAwesomeIcon icon={faTag} />
+          {" " + props.match.params.name}
         </span>
       </h2>
       <ul className="list-group" data-testid="list">

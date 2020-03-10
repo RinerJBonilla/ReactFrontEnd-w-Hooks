@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  render,
-  cleanup,
-  getByRole,
-  getByTestId
-} from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import "jest-axe/extend-expect";
-import store from "store";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import Cookie from "js-cookie";
