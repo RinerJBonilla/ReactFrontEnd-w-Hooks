@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function CommentList(props) {
   const [errorLoading, setErrorLoading] = useState(false);
@@ -59,10 +61,7 @@ export default function CommentList(props) {
                   <h5 className="mb-1">{message}</h5>
                 </div>
                 <small className="mb-1">
-                  <span role="img" aria-label="user">
-                    &#128100;
-                  </span>{" "}
-                  {username}
+                  <FontAwesomeIcon icon={faUser} /> {username}
                 </small>
               </div>
             ))

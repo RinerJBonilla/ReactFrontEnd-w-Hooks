@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Cookie from "js-cookie";
 import Axios from "axios";
 import { Link } from "react-router-dom";
+import { faTag } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const HomeListByTag = props => {
   const [posts, setPosts] = useState([]);
@@ -18,7 +20,9 @@ const HomeListByTag = props => {
       try {
         console.log(props.match.params.name);
         const response = await Axios.get(
-          "http://10.102.1.119:3001/searchBy/" + props.match.params.name,
+          process.env.REACT_APP_API_ADDRESS +
+            "/searchBy/" +
+            props.match.params.name,
           head
         );
 
@@ -41,7 +45,8 @@ const HomeListByTag = props => {
     <div className="HomeLists">
       <h2>
         <span className="badge badge-primary" data-testid="tag_label">
-          {props.match.params.name}
+          <FontAwesomeIcon icon={faTag} />
+          {" " + props.match.params.name}
         </span>
       </h2>
       <ul className="list-group" data-testid="list">

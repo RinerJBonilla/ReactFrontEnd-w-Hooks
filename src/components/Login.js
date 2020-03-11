@@ -33,10 +33,13 @@ class Login extends React.Component {
 
     //login
     try {
-      const { data } = await Axios.post("http://10.102.1.119:3001/login", {
-        username,
-        password
-      });
+      const { data } = await Axios.post(
+        process.env.REACT_APP_API_ADDRESS + "/login",
+        {
+          username,
+          password
+        }
+      );
       console.log("we got data", data);
 
       Cookie.set("token", data.token);

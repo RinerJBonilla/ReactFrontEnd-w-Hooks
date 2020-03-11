@@ -3,8 +3,13 @@ version: "3.7"
 services:
   prod:
     container_name: prod
+    image: postboard:0.1
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - REACT_APP_API_ADDRESS=${REACT_APP_API_ADDRESS}
+      - REACT_APP_SEARCH_CLI=${REACT_APP_SEARCH_CLI}
+      - REACT_APP_SEARCH_PASS=${REACT_APP_SEARCH_PASS}
     ports:
       - "80:80"

@@ -15,9 +15,9 @@ jest.mock("axios");
 
 axios.get.mockImplementation(url => {
   switch (url) {
-    case "http://10.102.1.119:3001/users/14":
+    case process.env.REACT_APP_API_ADDRESS + "/users/14":
       return Promise.resolve({ data: { id: 14, username: "koko" } });
-    case "http://10.102.1.119:3001/users/14/posts":
+    case process.env.REACT_APP_API_ADDRESS + "/users/14/posts":
       return Promise.resolve({
         data: [
           { id: 1, title: "hello", description: "gg" },

@@ -31,10 +31,13 @@ class Register extends React.Component {
 
     //login
     try {
-      const { data } = await Axios.post("http://10.102.1.119:3001/register", {
-        username,
-        password
-      });
+      const { data } = await Axios.post(
+        process.env.REACT_APP_API_ADDRESS + "/register",
+        {
+          username,
+          password
+        }
+      );
       console.log(data);
 
       console.log("you've signed up. yay!");

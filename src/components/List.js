@@ -18,7 +18,10 @@ export default class List extends Component {
     };
     var userid = jwt.decode(Cookie.get("token"));
 
-    Axios.get("http://10.102.1.119:3001/users/" + userid.id + "/posts", head)
+    Axios.get(
+      process.env.REACT_APP_API_ADDRESS + "/users/" + userid.id + "/posts",
+      head
+    )
       .then(response => {
         this.setState({ post: response.data });
       })
@@ -29,9 +32,6 @@ export default class List extends Component {
 
   delete = e => {
     console.log("delete X", e);
-    // Axios.delete('http://10.102.1.119:4001/posts/'+e)
-    //     .then(console.log('deleted'))
-    //     .catch( err => console.log(err));
   };
 
   tabRow = () => {
