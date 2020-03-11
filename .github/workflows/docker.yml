@@ -20,6 +20,6 @@ jobs:
       - name: check docker containers
         run: docker ps
       - name: change docker image
-        run: docker image tag postboard rainerbonilla/postboard:latest
+        run: docker image tag postboard:0.1 rainerbonilla/postboard:latest
       - name: push image to dockerhub
         run: docker push rainerbonilla/postboard:latest
