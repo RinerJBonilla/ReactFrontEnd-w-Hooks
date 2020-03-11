@@ -11,19 +11,23 @@ class TableRow extends Component {
   //   //this.delete = this.delete.bind(this);
   // }
 
-  delete = () => {
+  delete = async () => {
     let head = {
       headers: {
         authtoken: Cookie.get("token")
       }
     };
     console.log("delete", this.props.obj.id);
-    Axios.delete(
-      process.env.REACT_APP_API_ADDRESS + "/posts/" + this.props.obj.id,
-      head
-    )
-      .then(this.props.history.push("/"))
-      .catch(err => console.log(err));
+    try {
+      await Axios.delete(
+        process.env.REACT_APP_API_ADDRESS + "/posts/" + this.props.obj.id,
+        head
+      );
+      this.props.onDelete(this.props.obj.id);
+      this.props.history.push("/list");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   showMe() {

@@ -31,7 +31,15 @@ export default class List extends Component {
   }
 
   delete = e => {
-    console.log("delete X", e);
+    console.log("bout to delete delete X", e);
+    const newList = this.state.post;
+    console.log("new list: ", newList);
+    const index = newList.findIndex(x => x.id === e);
+    console.log(index);
+
+    if (index !== undefined) newList.splice(index, 1);
+
+    this.setState({ post: newList });
   };
 
   tabRow = () => {
