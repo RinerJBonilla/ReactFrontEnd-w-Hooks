@@ -7,7 +7,7 @@ import {
 } from "react-instantsearch-dom";
 import { Link } from "react-router-dom";
 
-export const MySearchBox = connectSearchBox(({ currentRefinement, refine }) => {
+export const SearchBox = ({ currentRefinement, refine }) => {
   var searchcontent;
   return (
     <input
@@ -26,7 +26,9 @@ export const MySearchBox = connectSearchBox(({ currentRefinement, refine }) => {
       }}
     />
   );
-});
+};
+
+export const MySearchBox = connectSearchBox(SearchBox);
 
 const Highlight = ({ highlight, attribute, hit }) => {
   const parsedHit = highlight({

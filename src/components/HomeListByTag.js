@@ -20,7 +20,9 @@ const HomeListByTag = props => {
       try {
         console.log(props.match.params.name);
         const response = await Axios.get(
-          "http://10.102.1.119:3001/searchBy/" + props.match.params.name,
+          process.env.REACT_APP_API_ADDRESS +
+            "/searchBy/" +
+            props.match.params.name,
           head
         );
 

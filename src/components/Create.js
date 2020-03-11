@@ -75,7 +75,7 @@ export default class Create extends Component {
     };
 
     try {
-      await Axios.post("http://10.102.1.119:3001/posts", obj, head);
+      await Axios.post(process.env.REACT_APP_API_ADDRESS + "/posts", obj, head);
       this.setState({
         title: "",
         description: "",

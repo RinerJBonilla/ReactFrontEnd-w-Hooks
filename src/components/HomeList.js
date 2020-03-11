@@ -14,7 +14,10 @@ const HomeList = ({ history }) => {
       }
     };
     try {
-      const response = await Axios.get("http://10.102.1.119:3001/posts", head);
+      const response = await Axios.get(
+        process.env.REACT_APP_API_ADDRESS + "/posts",
+        head
+      );
       setPosts(response.data);
       console.log("done bringing posts");
     } catch (error) {

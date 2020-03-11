@@ -44,7 +44,9 @@ export default class Edit extends Component {
 
     try {
       const response = await Axios.get(
-        "http://10.102.1.119:3001/posts/" + this.props.match.params.id,
+        process.env.REACT_APP_API_ADDRESS +
+          "/posts/" +
+          this.props.match.params.id,
         head
       );
 
@@ -145,7 +147,9 @@ export default class Edit extends Component {
     try {
       console.log(head);
       const response = await Axios.put(
-        "http://10.102.1.119:3001/posts/" + this.props.match.params.id,
+        process.env.REACT_APP_API_ADDRESS +
+          "/posts/" +
+          this.props.match.params.id,
         obj,
         head
       );

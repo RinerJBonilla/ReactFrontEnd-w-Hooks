@@ -11,8 +11,8 @@ import { faAlgolia } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const searchClient = algoliasearch(
-  "97WOL0LHIM",
-  "1dcd94410a26a002fbde3d71ecc8ba74"
+  process.env.REACT_APP_SEARCH_CLI,
+  process.env.REACT_APP_SEARCH_PASS
 );
 
 export default function Search() {

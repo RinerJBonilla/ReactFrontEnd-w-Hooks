@@ -35,7 +35,7 @@ export default class EditProfile extends Component {
 
     try {
       const userdata = await Axios.get(
-        "http://10.102.1.119:3001/users/" + idd.id,
+        process.env.REACT_APP_API_ADDRESS + "/users/" + idd.id,
         head
       );
       this.setState({
@@ -73,7 +73,7 @@ export default class EditProfile extends Component {
 
     try {
       const data = await Axios.put(
-        "http://10.102.1.119:3001/users/" + idd.id,
+        process.env.REACT_APP_API_ADDRESS + "/users/" + idd.id,
         obj,
         head
       );
