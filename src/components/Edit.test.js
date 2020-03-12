@@ -36,7 +36,8 @@ describe("Edit Container", () => {
       data: {
         title: "Hellou",
         description: "mate",
-        content: "it's a bit howyoudoin"
+        content: "it's a bit howyoudoin",
+        tags: []
       }
     };
 
@@ -67,7 +68,8 @@ describe("Edit Container", () => {
       data: {
         title: "Hellou",
         description: "mate",
-        content: "it's a bit howyoudoin"
+        content: "it's a bit howyoudoin",
+        tags: []
       }
     };
     const data2 = {
@@ -107,7 +109,8 @@ describe("Edit Container", () => {
       data: {
         title: "Hellou",
         description: "mate",
-        content: "it's a bit howyoudoin"
+        content: "it's a bit howyoudoin",
+        tags: []
       }
     };
     const data2 = {

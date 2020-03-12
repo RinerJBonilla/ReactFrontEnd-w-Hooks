@@ -52,7 +52,7 @@ describe("Home Container", () => {
       const { getByTestId, debug } = render(CreateHome(history));
     });
 
-    expect(history.location.pathname).toEqual("/homelist");
+    expect(history.location.pathname).toEqual("/");
   });
 
   test("checking navigation Home component", async () => {

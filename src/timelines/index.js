@@ -30,10 +30,7 @@ const getDefaultTimeline = (node, delay) => {
 
 export const play = (pathname, node, appears) => {
   const delay = appears ? 0 : 0.5;
-  let timeline;
-
-  timeline = getDefaultTimeline(node, delay);
-
+  const timeline = getDefaultTimeline(node, delay);
   timeline.play();
 };
 

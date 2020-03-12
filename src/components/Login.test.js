@@ -1,12 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Login from "./Login";
-import * as jestDOM from "@testing-library/jest-dom";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import "jest-axe/extend-expect";
 import user from "@testing-library/user-event";
-import { axe } from "jest-axe";
 import axios from "axios";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
@@ -24,17 +22,6 @@ test("renders learn react link", () => {
     </Router>,
     div
   );
-});
-
-test("component should not have vaiolations", async () => {
-  const history = createMemoryHistory();
-  const { container } = render(
-    <Router history={history}>
-      <Login history={history}></Login>
-    </Router>
-  );
-  const resutls = await axe(container);
-  expect(resutls).not.toHaveNoViolations();
 });
 
 test("renders login correctly", () => {
