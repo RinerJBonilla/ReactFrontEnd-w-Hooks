@@ -33,12 +33,14 @@ export default function Search() {
             </a>
           </small>
         </div>
-        <CustomHits />
+        <div className="content--inner">
+          <CustomHits />
 
-        <div className="d-flex justify-content-center">
-          <CustomPagination />
+          <div className="d-flex justify-content-center">
+            <CustomPagination />
+          </div>
+          <Configure hitsPerPage={6} />
         </div>
-        <Configure hitsPerPage={6} />
       </InstantSearch>
     </div>
   );

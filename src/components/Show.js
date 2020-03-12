@@ -158,23 +158,27 @@ export default class Show extends Component {
           </ul>
         </div>
         <p>&nbsp;</p>
-        <div className="d-flex justify-content-center">
-          <div dangerouslySetInnerHTML={{ __html: this.state.content }} />
+        <div className="content--inner">
+          <div className="d-flex justify-content-center">
+            <div dangerouslySetInnerHTML={{ __html: this.state.content }} />
+          </div>
         </div>
         <p>&nbsp;</p>
-        <div className="d-flex justify-content-center">
-          <CommentList
-            comments={this.state.comments}
-            handleAddComment={this.handleAddComment}
-          />
-        </div>
-        <div className="container mb-3">
-          <div className="d-flex justify-content-center mb-3">
-            {this.error && (
-              <div className="alert alert-danger text-center" role="alert">
-                {this.state.message}
-              </div>
-            )}
+        <div className="content--inner--inner">
+          <div className="d-flex justify-content-center">
+            <CommentList
+              comments={this.state.comments}
+              handleAddComment={this.handleAddComment}
+            />
+          </div>
+          <div className="container mb-3">
+            <div className="d-flex justify-content-center mb-3">
+              {this.error && (
+                <div className="alert alert-danger text-center" role="alert">
+                  {this.state.message}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

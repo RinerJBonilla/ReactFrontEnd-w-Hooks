@@ -7,6 +7,13 @@ import { Link } from "react-router-dom";
 import { Form } from "semantic-ui-react";
 
 import Axios from "axios";
+import {
+  Transition,
+  TransitionGroup,
+  CSSTransition
+} from "react-transition-group";
+import { play, exit } from "../timelines";
+import "./Dialog.css";
 
 class Login extends React.Component {
   constructor(props) {
@@ -46,7 +53,7 @@ class Login extends React.Component {
 
       console.log("you're logged in. yay!");
       store.set("loggedIn", true);
-      history.push("/home");
+      history.push("/");
     } catch (error) {
       if (!error) {
         return;
@@ -71,67 +78,83 @@ class Login extends React.Component {
     };
 
     return (
-      <div data-testid="login-container">
-        <div className="container">
-          <div className="d-flex justify-content-center">
-            <h1>Log In</h1>
-          </div>
-        </div>
-
-        <div className="d-flex justify-content-center">
-          <form
-            data-testid="login-form"
-            className="border"
-            style={mstyle}
-            error={error ? 1 : 0}
-            onSubmit={this.onSubmit}
-          >
-            <Form.Input
-              inline
-              label="Username"
-              name="username"
-              placeholder="username"
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              inline
-              label="Password"
-              type="password"
-              name="password"
-              placeholder="password"
-              onChange={this.handleChange}
-            />
-            <button
-              data-testid="login-button"
-              className="btn btn-outline-secondary"
-              style={{ margin: "10px" }}
-              type="submit"
-            >
-              Log In!
-            </button>
-          </form>
-        </div>
-        <div className="container">
-          <div className="d-flex justify-content-center">
-            <small>
-              Not registered?
-              <Link to={"/register"} className="nav-link">
-                Sign Up!
-              </Link>
-            </small>
-          </div>
-        </div>
-
-        <div className="container mb-3">
-          <div className="d-flex justify-content-center mb-3">
-            {error && (
-              <div className="alert alert-danger text-center" role="alert">
-                {this.state.message}
+      <TransitionGroup component={null}>
+        <Transition
+          appear={true}
+          onEnter={(node, appears) => play("pathname", node, appears)}
+          onExit={(node, appears) => exit(node, appears)}
+          timeout={{ enter: 750, exit: 150 }}
+        >
+          <div data-testid="login-container">
+            <div className="container">
+              <div className="d-flex justify-content-center">
+                <h1>Log In</h1>
               </div>
-            )}
+            </div>
+
+            <div className="d-flex justify-content-center">
+              <form
+                data-testid="login-form"
+                className="border"
+                style={mstyle}
+                error={error ? 1 : 0}
+                onSubmit={this.onSubmit}
+              >
+                <Form.Input
+                  inline
+                  label="Username"
+                  name="username"
+                  placeholder="username"
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  inline
+                  label="Password"
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  onChange={this.handleChange}
+                />
+                <button
+                  data-testid="login-button"
+                  className="btn btn-outline-secondary"
+                  style={{ margin: "10px" }}
+                  type="submit"
+                >
+                  Log In!
+                </button>
+              </form>
+            </div>
+            <div className="container">
+              <div className="d-flex justify-content-center">
+                <small>
+                  Not registered?
+                  <Link to={"/register"} className="nav-link">
+                    Sign Up!
+                  </Link>
+                </small>
+              </div>
+            </div>
+
+            <div className="container mb-3">
+              <div className="d-flex justify-content-center mb-3">
+                <TransitionGroup component={null}>
+                  {error && (
+                    <CSSTransition classNames="dialog" timeout={300}>
+                      <div
+                        className="alert alert-danger text-center"
+                        role="alert"
+                      >
+                        {this.state.message}
+                      </div>
+                    </CSSTransition>
+                  )}
+                </TransitionGroup>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </Transition>
+      </TransitionGroup>
     );
   }
 }

@@ -30,7 +30,7 @@ export default class ConfirmStatusChange extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         {this.props.children(this.show)}
 
         {this.state.open && (
@@ -49,7 +49,7 @@ export default class ConfirmStatusChange extends React.Component {
             </button>
           </Dialog>
         )}
-      </React.Fragment>
+      </>
     );
   }
 }

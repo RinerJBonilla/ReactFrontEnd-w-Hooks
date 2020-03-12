@@ -49,37 +49,39 @@ const HomeListByTag = props => {
           {" " + props.match.params.name}
         </span>
       </h2>
-      <ul className="list-group" data-testid="list">
-        {!errorLoading ? (
-          posts
-            .slice(0)
-            .reverse()
-            .map(({ id, title, description }) => (
-              <Link
-                data-testid={"postlink" + id}
-                to={"/show/" + id}
-                className="list-group-item list-group-item-action flex-column align-items-start rounded py-2"
-                style={{
-                  margin: "10px",
-                  borderRadius: "40px",
-                  padding: "3px 10px"
-                }}
-                key={id}
-              >
-                <div className="d-flex w-100 justify-content-between">
-                  <h4 className="mb-1" data-testid={"title_" + id}>
-                    {title}
-                  </h4>
-                </div>
-                <p className="mb-1" data-testid={"description_" + id}>
-                  {description}
-                </p>
-              </Link>
-            ))
-        ) : (
-          <p data-testid="no-post">{"No posts found."}</p>
-        )}
-      </ul>
+      <div className="content--inner">
+        <ul className="list-group" data-testid="list">
+          {!errorLoading ? (
+            posts
+              .slice(0)
+              .reverse()
+              .map(({ id, title, description }) => (
+                <Link
+                  data-testid={"postlink" + id}
+                  to={"/show/" + id}
+                  className="list-group-item list-group-item-action flex-column align-items-start rounded py-2"
+                  style={{
+                    margin: "10px",
+                    borderRadius: "40px",
+                    padding: "3px 10px"
+                  }}
+                  key={id}
+                >
+                  <div className="d-flex w-100 justify-content-between">
+                    <h4 className="mb-1" data-testid={"title_" + id}>
+                      {title}
+                    </h4>
+                  </div>
+                  <p className="mb-1" data-testid={"description_" + id}>
+                    {description}
+                  </p>
+                </Link>
+              ))
+          ) : (
+            <p data-testid="no-post">{"No posts found."}</p>
+          )}
+        </ul>
+      </div>
     </div>
   );
 };

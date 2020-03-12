@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Switch, Route, Link, Redirect } from "react-router-dom";
+import { Transition, TransitionGroup } from "react-transition-group";
 import "@reach/dialog/styles.css";
 import store from "store";
 import Create from "./components/Create";
@@ -18,6 +19,7 @@ import { faSearch, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Cookie from "js-cookie";
 import jwt from "jsonwebtoken";
+import { play, exit } from "./timelines";
 
 const handleLogout = history => () => {
   Cookie.remove("token");
@@ -42,7 +44,7 @@ const Home = ({ history }) => {
     return (
       <div className="container">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <Link to={"/home"} className="navbar-brand" data-testid="blog">
+          <Link to={"/"} className="navbar-brand" data-testid="blog">
             My Blog
           </Link>
 
@@ -87,26 +89,43 @@ const Home = ({ history }) => {
         </nav>{" "}
         <br />
         <h2>Welcome</h2> <br />
-        <Switch>
-          <Route exact={true} path="/create" component={Create} />
-          <Route path="/show/:id" component={Show} />
-          <Route path="/edit/:id" component={Edit} />
-          <Route path="/list" component={List} />
-          <Route path="/profile" component={ShowProfile} />
-          <Route
-            path="/tag/:name"
-            render={props => <HomeListByTag {...props} />}
-          />
-          <Route path="/homelist" component={HomeList} />
-          <Route path="/search" component={Search} />
-          <Route
-            path="/editprofile"
-            render={props => <EditProfile {...props} setUser={setUser} />}
-          />
-          <Redirect from="/home" exact to="/homelist" />
-          <Redirect from="/" exact to="/homelist" />
-          <Route component={FourOhFour} />
-        </Switch>
+        <Route
+          render={({ location }) => {
+            const { pathname, key } = location;
+            return (
+              <TransitionGroup component={null}>
+                <Transition
+                  key={key}
+                  appear={true}
+                  onEnter={(node, appears) => play(pathname, node, appears)}
+                  onExit={(node, appears) => exit(node, appears)}
+                  timeout={{ enter: 750, exit: 150 }}
+                >
+                  <Switch location={location}>
+                    <Route exact={true} path="/" component={HomeList} />
+                    <Route path="/search" component={Search} />
+                    <Route exact={true} path="/create" component={Create} />
+                    <Route path="/show/:id" component={Show} />
+                    <Route path="/edit/:id" component={Edit} />
+                    <Route path="/list" component={List} />
+                    <Route path="/profile" component={ShowProfile} />
+                    <Route
+                      path="/tag/:name"
+                      render={props => <HomeListByTag {...props} />}
+                    />
+                    <Route
+                      path="/editprofile"
+                      render={props => (
+                        <EditProfile {...props} setUser={setUser} />
+                      )}
+                    />
+                    <Route component={FourOhFour} />
+                  </Switch>
+                </Transition>
+              </TransitionGroup>
+            );
+          }}
+        />
       </div>
     );
   }
