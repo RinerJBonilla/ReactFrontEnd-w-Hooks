@@ -61,23 +61,25 @@ export default class List extends Component {
 
   render() {
     return (
-      <div>
-        <h3 align="center" data-testid="myposts">
-          My Posts
-        </h3>
-        <div className="content--inner">
-          <table className="table table-striped" style={{ marginTop: 20 }}>
-            <thead>
-              <tr>
-                <th data-testid="title">Title</th>
-                <th data-testid="description">Description</th>
-                <th colSpan="2" data-testid="action">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody data-testid="columns">{this.tabRow()}</tbody>
-          </table>
+      <div className="container">
+        <div>
+          <h3 align="center" data-testid="myposts">
+            My Posts
+          </h3>
+          <div className="content--inner">
+            <table className="table table-striped" style={{ marginTop: 20 }}>
+              <thead>
+                <tr>
+                  <th data-testid="title">Title</th>
+                  <th data-testid="description">Description</th>
+                  <th colSpan="2" data-testid="action">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody data-testid="columns">{this.tabRow()}</tbody>
+            </table>
+          </div>
         </div>
       </div>
     );

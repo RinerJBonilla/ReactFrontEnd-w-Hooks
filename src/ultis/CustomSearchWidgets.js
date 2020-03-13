@@ -85,7 +85,7 @@ const Hits = ({ hits }) => (
 export const CustomHits = connectHits(Hits);
 
 const Pagination = ({ currentRefinement, nbPages, refine, createURL }) => (
-  <ul class="list-group list-group-horizontal">
+  <ul className="list-group list-group-horizontal">
     {new Array(nbPages).fill(null).map((_, index) => {
       const page = index + 1;
       const classer =
@@ -97,7 +97,7 @@ const Pagination = ({ currentRefinement, nbPages, refine, createURL }) => (
         <small>
           <a
             type="button"
-            class={classer}
+            className={classer}
             href={createURL(page)}
             onClick={event => {
               event.preventDefault();

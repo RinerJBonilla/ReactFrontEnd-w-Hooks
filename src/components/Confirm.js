@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Dialog } from "@reach/dialog";
+import "./Dialog.css";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 export default class ConfirmStatusChange extends React.Component {
   state = {
@@ -32,23 +34,29 @@ export default class ConfirmStatusChange extends React.Component {
     return (
       <>
         {this.props.children(this.show)}
+        <TransitionGroup component={null}>
+          {this.state.open && (
+            <CSSTransition classNames="dialog" timeout={300}>
+              <Dialog>
+                <h1>{this.props.title}</h1>
+                <p>{this.props.description}</p>
 
-        {this.state.open && (
-          <Dialog>
-            <h1>{this.props.title}</h1>
-            <p>{this.props.description}</p>
-
-            <button className="btn btn-outline-secondary" onClick={this.hide}>
-              Cancel
-            </button>
-            <button
-              className="btn btn-outline-secondary"
-              onClick={this.confirm}
-            >
-              OK
-            </button>
-          </Dialog>
-        )}
+                <button
+                  className="btn btn-outline-secondary"
+                  onClick={this.hide}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="btn btn-outline-secondary"
+                  onClick={this.confirm}
+                >
+                  OK
+                </button>
+              </Dialog>
+            </CSSTransition>
+          )}
+        </TransitionGroup>
       </>
     );
   }

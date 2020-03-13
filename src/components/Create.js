@@ -99,67 +99,75 @@ export default class Create extends Component {
   render() {
     const { editorState, error, tags } = this.state;
     return (
-      <div style={{ marginTop: 10 }}>
-        <h3 data-testid="create-label">Add New Post</h3>
-        <div className="content--inner">
-          <form error={error ? 1 : 0} data-testid="create-form">
-            <div className="form-group">
-              <label data-testid="label-title">Title: </label>
-              <input
-                type="text"
-                className="form-control"
-                value={this.state.title}
-                data-testid="create-title"
-                onChange={this.onChangeTitle}
-              />
+      <div className="container">
+        <div style={{ marginTop: 10 }}>
+          <h3 data-testid="create-label">Add New Post</h3>
+          <div className="content--inner">
+            <form error={error ? 1 : 0} data-testid="create-form">
+              <div className="form-group">
+                <label data-testid="label-title">Title: </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={this.state.title}
+                  data-testid="create-title"
+                  onChange={this.onChangeTitle}
+                />
+              </div>
+              <div className="form-group">
+                <label data-testid="label-desc">Description: </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  data-testid="create-desc"
+                  value={this.state.description}
+                  onChange={this.onChangeDescription}
+                />
+              </div>
+              <div>
+                <label data-testid="label-tags">Tags: </label>
+                <InputTag
+                  ChangeInputs={this.ChangeInputs}
+                  tags={tags}
+                ></InputTag>
+              </div>
+              <div className="form-group" data-testid="ebutton">
+                <Editor
+                  editorState={editorState}
+                  toolbarClassName="toolbarClassName"
+                  wrapperClassName="wrapperClassName"
+                  editorClassName="editorClassName"
+                  data-testid="xbutton"
+                  onEditorStateChange={this.onEditorStateChange}
+                />
+              </div>
+              <div className="form-group">
+                <button
+                  onClick={this.onSubmit}
+                  className="btn btn-outline-secondary"
+                  data-testid="cbutton"
+                  type="button"
+                >
+                  Create
+                </button>
+              </div>
+            </form>
+          </div>
+          <div className="container mb-3">
+            <div className="d-flex justify-content-center mb-3">
+              <TransitionGroup component={null}>
+                {error && (
+                  <CSSTransition classNames="dialog" timeout={300}>
+                    <div
+                      className="alert alert-danger text-center"
+                      role="alert"
+                    >
+                      {this.state.message}
+                    </div>
+                  </CSSTransition>
+                )}
+              </TransitionGroup>
             </div>
-            <div className="form-group">
-              <label data-testid="label-desc">Description: </label>
-              <input
-                type="text"
-                className="form-control"
-                data-testid="create-desc"
-                value={this.state.description}
-                onChange={this.onChangeDescription}
-              />
-            </div>
-            <div>
-              <label data-testid="label-tags">Tags: </label>
-              <InputTag ChangeInputs={this.ChangeInputs} tags={tags}></InputTag>
-            </div>
-            <div className="form-group" data-testid="ebutton">
-              <Editor
-                editorState={editorState}
-                toolbarClassName="toolbarClassName"
-                wrapperClassName="wrapperClassName"
-                editorClassName="editorClassName"
-                data-testid="xbutton"
-                onEditorStateChange={this.onEditorStateChange}
-              />
-            </div>
-            <div className="form-group">
-              <button
-                onClick={this.onSubmit}
-                className="btn btn-outline-secondary"
-                data-testid="cbutton"
-                type="button"
-              >
-                Create
-              </button>
-            </div>
-          </form>
-        </div>
-        <div className="container mb-3">
-          <div className="d-flex justify-content-center mb-3">
-            <TransitionGroup component={null}>
-              {error && (
-                <CSSTransition classNames="dialog" timeout={300}>
-                  <div className="alert alert-danger text-center" role="alert">
-                    {this.state.message}
-                  </div>
-                </CSSTransition>
-              )}
-            </TransitionGroup>
           </div>
         </div>
       </div>

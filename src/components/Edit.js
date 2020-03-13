@@ -4,10 +4,12 @@ import { EditorState, convertToRaw, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 import InputTag from "./InputTag";
-
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import FourOhFour from "./FourOhFour";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Cookie from "js-cookie";
+import "./Dialog.css";
 
 export default class Edit extends Component {
   constructor(props) {
@@ -27,7 +29,8 @@ export default class Edit extends Component {
       error: false,
       message: "",
       tags: [],
-      backUpTags: []
+      backUpTags: [],
+      errorLoading: false
     };
   }
 
@@ -75,6 +78,12 @@ export default class Edit extends Component {
       });
     } catch (error) {
       console.log(error);
+      return this.setState({
+        errorLoading: true,
+        message: error.response.data.message
+          ? error.response.data.message
+          : error.response.data.error
+      });
     }
   }
 
@@ -179,63 +188,81 @@ export default class Edit extends Component {
   render() {
     const { editorState, error, tags } = this.state;
     return (
-      <div style={{ marginTop: 10 }}>
-        <h3 data-testid="edit-mypost">Edit Post</h3>
-        <form error={error ? 1 : 0} data-testid="edit-form">
-          <div className="form-group">
-            <label data-testid="title-label">Title: </label>
-            <input
-              type="text"
-              className="form-control"
-              data-testid="edit-title"
-              value={this.state.title}
-              onChange={this.onChangeTitle}
-            />
-          </div>
-          <div className="form-group">
-            <label data-testid="desc-label">Description: </label>
-            <input
-              type="text"
-              className="form-control"
-              value={this.state.description}
-              data-testid="edid-desc"
-              onChange={this.onChangeDescription}
-            />
-          </div>
-          <div>
-            <InputTag ChangeInputs={this.ChangeInputs} tags={tags}></InputTag>
-          </div>
-          <div className="form-group" data-testid="content-editor">
-            <Editor
-              editorState={editorState}
-              toolbarClassName="toolbarClassName"
-              wrapperClassName="wrapperClassName"
-              editorClassName="editorClassName"
-              data-testid="editor-wrapper"
-              onEditorStateChange={this.onEditorStateChange}
-            />
-          </div>
+      <div>
+        {!this.state.errorLoading ? (
+          <div className="container">
+            <div style={{ marginTop: 10 }}>
+              <h3 data-testid="edit-mypost">Edit Post</h3>
+              <form error={error ? 1 : 0} data-testid="edit-form">
+                <div className="form-group">
+                  <label data-testid="title-label">Title: </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    data-testid="edit-title"
+                    value={this.state.title}
+                    onChange={this.onChangeTitle}
+                  />
+                </div>
+                <div className="form-group">
+                  <label data-testid="desc-label">Description: </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={this.state.description}
+                    data-testid="edid-desc"
+                    onChange={this.onChangeDescription}
+                  />
+                </div>
+                <div>
+                  <InputTag
+                    ChangeInputs={this.ChangeInputs}
+                    tags={tags}
+                  ></InputTag>
+                </div>
+                <div className="form-group" data-testid="content-editor">
+                  <Editor
+                    editorState={editorState}
+                    toolbarClassName="toolbarClassName"
+                    wrapperClassName="wrapperClassName"
+                    editorClassName="editorClassName"
+                    data-testid="editor-wrapper"
+                    onEditorStateChange={this.onEditorStateChange}
+                  />
+                </div>
 
-          <div className="form-group">
-            <button
-              onClick={this.onSubmit}
-              data-testid="ebutton"
-              className="btn btn-outline-secondary"
-              type="button"
-            >
-              Update
-            </button>
-          </div>
-        </form>
-        <div className="container mb-3">
-          <div className="d-flex justify-content-center mb-3">
-            {error && (
-              <div className="alert alert-danger text-center" role="alert">
-                {this.state.message}
+                <div className="form-group">
+                  <button
+                    onClick={this.onSubmit}
+                    data-testid="ebutton"
+                    className="btn btn-outline-secondary"
+                    type="button"
+                  >
+                    Update
+                  </button>
+                </div>
+              </form>
+              <div className="container mb-3">
+                <div className="d-flex justify-content-center mb-3">
+                  <TransitionGroup component={null}>
+                    {error && (
+                      <CSSTransition classNames="dialog" timeout={300}>
+                        <div
+                          className="alert alert-danger text-center"
+                          role="alert"
+                        >
+                          {this.state.message}
+                        </div>
+                      </CSSTransition>
+                    )}
+                  </TransitionGroup>
+                </div>
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        ) : (
+          <FourOhFour />
+        )}
       </div>
     );
   }

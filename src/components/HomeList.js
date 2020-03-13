@@ -31,7 +31,10 @@ const HomeList = ({ history }) => {
   }, []);
 
   return (
-    <div className="HomeLists">
+    <div className="container">
+      <div className="d-flex justify-content-center">
+        <h1>Welcome</h1>
+      </div>
       <ul className="list-group" data-testid="list">
         {!errorLoading ? (
           posts
@@ -56,7 +59,7 @@ const HomeList = ({ history }) => {
               </Link>
             ))
         ) : (
-          <p>{"No post"}</p>
+          <p>{"No posts"}</p>
         )}
       </ul>
     </div>

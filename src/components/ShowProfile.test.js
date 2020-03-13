@@ -33,7 +33,10 @@ axios.get.mockImplementation(url => {
 function CreateShowProfile(history) {
   return (
     <Router history={history}>
-      <ShowProfile history={history}></ShowProfile>
+      <ShowProfile
+        history={history}
+        match={{ params: { username: undefined } }}
+      ></ShowProfile>
     </Router>
   );
 }

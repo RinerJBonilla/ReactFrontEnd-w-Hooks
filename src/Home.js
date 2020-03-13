@@ -42,8 +42,11 @@ const Home = ({ history }) => {
     return <Redirect to="/login" />;
   } else {
     return (
-      <div className="container">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div>
+        <nav
+          className="navbar navbar-expand-lg navbar-light"
+          style={{ backgroundColor: "#e6e6e6" }}
+        >
           <Link to={"/"} className="navbar-brand" data-testid="blog">
             My Blog
           </Link>
@@ -78,17 +81,17 @@ const Home = ({ history }) => {
               <li className="nav-item">
                 <button
                   onClick={handleLogout(history)}
-                  className="btn btn-outline-secondary"
+                  className="btn btn-secondary"
                   data-testid="logout"
                 >
-                  Logout
+                  Log out
                 </button>
               </li>
             </ul>
           </div>
         </nav>{" "}
         <br />
-        <h2>Welcome</h2> <br />
+        <br />
         <Route
           render={({ location }) => {
             const { pathname, key } = location;
@@ -108,7 +111,16 @@ const Home = ({ history }) => {
                     <Route path="/show/:id" component={Show} />
                     <Route path="/edit/:id" component={Edit} />
                     <Route path="/list" component={List} />
-                    <Route path="/profile" component={ShowProfile} />
+                    <Route
+                      exact={true}
+                      path="/profile"
+                      component={ShowProfile}
+                    />
+                    <Route
+                      exact={true}
+                      path="/profile/:username"
+                      component={ShowProfile}
+                    />
                     <Route
                       path="/tag/:name"
                       render={props => <HomeListByTag {...props} />}

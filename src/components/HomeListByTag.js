@@ -42,7 +42,7 @@ const HomeListByTag = props => {
   }, [props.match.params.name]);
 
   return (
-    <div className="HomeLists">
+    <div className="container">
       <h2>
         <span className="badge badge-primary" data-testid="tag_label">
           <FontAwesomeIcon icon={faTag} />
@@ -59,7 +59,7 @@ const HomeListByTag = props => {
                 <Link
                   data-testid={"postlink" + id}
                   to={"/show/" + id}
-                  className="list-group-item list-group-item-action flex-column align-items-start rounded py-2"
+                  className="list-group-item list-group-item-action flex-column align-items-start rounded"
                   style={{
                     margin: "10px",
                     borderRadius: "40px",
